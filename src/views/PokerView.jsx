@@ -1,13 +1,23 @@
 import FuncList from "../components/FuncList/funcList.jsx";
+import React from "react";
 
 
 function PokerView() {
-    const data = JSON.parse(
-        sessionStorage.getItem('formData') || '{}'
+    const backdata = JSON.parse(
+        sessionStorage.getItem('backlogData') || '{}'
+    );
+    const playerdata = JSON.parse(
+        sessionStorage.getItem('playersData') || '{}'
     );
     return (
         <>
-            <FuncList backlog={data}/>
+            {playerdata.map ((item, index) => (
+                <div key={index}>
+                    <p>Joueur {index +1} : {item}</p>
+                </div>
+                )
+            )}
+            <FuncList backlog={backdata}/>
         </>
     );
 }

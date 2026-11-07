@@ -3,10 +3,10 @@
 
 - B-01:
   - Demande : Fonction pour vérifier le format du json importé
-  - Résultat : importForm.jsx - function validateJSON
+  - Résultat : configForm.jsx - function validateJSON
   - Modifications : aucune
 
-##US-07 :
+## US-07 :
 - B-02:
   - Demande: completer fonction  
   - Résultat : playersForm.jsx - function PlayersForm

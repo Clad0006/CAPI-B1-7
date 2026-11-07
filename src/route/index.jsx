@@ -11,12 +11,7 @@ function Router() {
     return (
         <Switch>
 
-            
             <Route path="/">
-                <PlayersView />
-            </Route>
-
-            <Route path="/backlog">
                 <HomeView />
             </Route>
 
@@ -24,7 +19,6 @@ function Router() {
                 <PokerView />
             </Route>
 
-            
 
             <Route component={NotFoundView} />
         </Switch>
