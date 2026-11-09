@@ -6,7 +6,7 @@ function Cards({onClick}) {
     return (
         <div>
             {Array.from(valueList).map((item, index) => (
-                <button type={"button"} onClick={()=>{onClick(item)}}>{item}</button>
+                <button key={index} type={"button"} onClick={()=>{onClick(item)}}>{item}</button>
             ))}
         </div>
     );

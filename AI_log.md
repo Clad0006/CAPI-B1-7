@@ -12,6 +12,10 @@
   - Résultat : playersForm.jsx - function PlayersForm
   - Modifications : simplification du code, limite du nombre de joueurs entre 2 et 10
 
+## Validation
+- Demande : completer fonction
+- Résultat : validation.jsx
+- Modifications : aucune
 ## CI :
  - Demande : écrire et expliquer un fichier de CI simple pour le framework utilisé
  - Résultat : .github/workflows/ci.yml
