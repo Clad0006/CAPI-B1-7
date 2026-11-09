@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import Func from "../Func/func.jsx";
 import Cards from "../Cards/cards.jsx";
 
-
-function FuncList({backlog}) {
+function Game({backlog}) {
     const[funcId, setFuncId] = React.useState(0);
     const [playerId, setPlayerId] = React.useState(0);
     const playerdata = JSON.parse(
@@ -77,7 +76,7 @@ function FuncList({backlog}) {
     }
 }
 
-FuncList.propTypes = {
+Game.propTypes = {
     backlog: PropTypes.shape({
         projet: PropTypes.string.isRequired,
         fonctionnalites: PropTypes.arrayOf(
@@ -90,4 +89,4 @@ FuncList.propTypes = {
     })
 }
 
-export default FuncList;
+export default Game;
