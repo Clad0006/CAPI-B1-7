@@ -1,4 +1,4 @@
-import FuncList from "../components/FuncList/funcList.jsx";
+import Game from "../components/Game/game.jsx";
 import React from "react";
 
 
@@ -17,7 +17,7 @@ function PokerView() {
                 </div>
                 )
             )}
-            <FuncList backlog={backdata}/>
+            <Game backlog={backdata}/>
         </>
     );
 }

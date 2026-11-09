@@ -1,6 +1,5 @@
-import {expect,test} from "vitest";
-import rules from "../../src/functions/validation.jsx"
-import validate from "../../src/functions/validation.jsx"
+import { expect, test } from "vitest";
+import validate, { rules } from "../../src/functions/validation.jsx";
 
 test('test_CA_01_1_strict_non_atteint', () => {
     let votes= [3,3,3,5];

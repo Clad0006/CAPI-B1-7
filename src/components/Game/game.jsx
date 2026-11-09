@@ -2,11 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import Func from "../Func/func.jsx";
 import Cards from "../Cards/cards.jsx";
+import validate, { rules } from "../../functions/validation.jsx";
 
 
 function FuncList({backlog}) {
     const[funcId, setFuncId] = React.useState(0);
     const [playerId, setPlayerId] = React.useState(0);
+    const[turn, setTurn] = React.useState(1);
+    const rule = rules.ABSMAJ;
     const playerdata = JSON.parse(
         sessionStorage.getItem('playersData') || '{}'
     );
@@ -20,42 +23,52 @@ function FuncList({backlog}) {
     }
     const[currPlayer, setcurrPlayer] = React.useState(playerdata[playerId]);
     function onCardClick(value) {
-        updateVote(currPlayer, value);
+        updateVote(currPlayer, value === "Café" ? -1 :value);
         const nextPlayerId = playerId + 1;
         setPlayerId(nextPlayerId);
         setcurrPlayer(playerdata[nextPlayerId]);
     }
-    function nextVote(){
-        setCurrVote(prev => {
-            const newVote = new Map(prev);
 
-            for (const key of newVote.keys()) {
-                newVote.set(key, 0);
-            }
-
-            return newVote;
-        });
-        const nextPlayerId = 0;
-        setPlayerId(nextPlayerId);
-        setcurrPlayer(playerdata[nextPlayerId]);
-        setFuncId(funcId+1);
+    function newTurn(){
+        setCurrVote(new Map());
+        setPlayerId(0);
+        setcurrPlayer(playerdata[0]);
+        setTurn(t => t + 1);
     }
+
+    function nextFunc(){
+        setCurrVote(new Map());
+        setPlayerId(0);
+        setcurrPlayer(playerdata[0]);
+        setTurn(1);
+        setFuncId(funcId + 1);
+    }
+    
+    
     if(!currPlayer){ // s'il n'y a plus de joueurs à faire voter
+        const result = validate(Array.from(currVote.values()), rule, turn);
         return (
             <div>
                 <h1>{backlog.projet}</h1>
 
                 <Func backlog={backlog} funcId ={funcId}></Func>
 
-                <h3>Résultat des votes</h3>
+                <h3>Résultat des votes(tour {turn})</h3>
 
                 {Array.from(currVote).map((item, index) => (
-                    <div key={index}>{item[0]} : {item[1]}</div>
+                    <div key={index}>{item[0]} : {item[1] === -1 ? "Café" : item[1]}</div>
                 ))}
 
-                <button onClick={()=>{nextVote()}}>Passer a la suite</button>
-            </div>
-        )
+                {result === -1 ? (
+                    <button onClick={newTurn}>Nouveau tour</button>
+                ) : (
+                    <>
+                        <p>Validé : {result}</p>
+                        <button onClick={nextFunc}>Passer à la suite</button>
+                    </>
+                )}           
+         </div>
+        );
     }
     else {
         if(funcId<backlog.fonctionnalites.length){ //tant qu'il reste une fonctionnalité à estimer
@@ -72,7 +85,7 @@ function FuncList({backlog}) {
         } else {
             return (
                 <h1>backlog estimé</h1>
-            )
+            );
         }
     }
 }
