@@ -17,7 +17,7 @@ concurrency:
 # Liste les différentes actions à effectuer, les 'jobs'
 jobs:
   quality:
-    name: Code quality & tests
+    name: Tests
     runs-on: ubuntu-latest # Précise sur quel système d'exploitation faire tourner le job, ici linux ubuntu
 
     steps:
