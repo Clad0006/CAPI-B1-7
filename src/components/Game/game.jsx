@@ -4,8 +4,7 @@ import Func from "../Func/func.jsx";
 import Cards from "../Cards/cards.jsx";
 import validate, { rules } from "../../functions/validation.jsx";
 
-
-function FuncList({backlog}) {
+function Game({backlog}) {
     const[funcId, setFuncId] = React.useState(0);
     const [playerId, setPlayerId] = React.useState(0);
     const[turn, setTurn] = React.useState(1);
@@ -90,7 +89,7 @@ function FuncList({backlog}) {
     }
 }
 
-FuncList.propTypes = {
+Game.propTypes = {
     backlog: PropTypes.shape({
         projet: PropTypes.string.isRequired,
         fonctionnalites: PropTypes.arrayOf(
@@ -103,4 +102,4 @@ FuncList.propTypes = {
     })
 }
 
-export default FuncList;
+export default Game;

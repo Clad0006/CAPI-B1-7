@@ -1,0 +1,41 @@
+name: CI
+
+# Sur push ou tentative de merge sur master
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+# Évite les exécutions concurrentes inutiles
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+# Liste les différentes actions à effectuer, les 'jobs'
+jobs:
+  quality:
+    name: Tests
+    runs-on: ubuntu-latest # Précise sur quel système d'exploitation faire tourner le job, ici linux ubuntu
+
+    steps:
+      # Checkout la branche et récupère le code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Installe node version 22 via npm install
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # Utilise la commande npm ci pour installer les dépendances (équivalent npm install sans params, utilise node_modules)
+      - name: Install dependencies
+        run: npm ci
+
+      # Execute les tests avec l'option --run qui permet de les éxecuter une seule fois (l'execution par défaut en mode watch est en temps réel et ne se termine donc pas toute seule)
+      - name: Run tests
+        run: npm run test -- --run
