@@ -1,0 +1,13 @@
+﻿{
+  "backlog" : {
+    "projet": "Bibliothèque en ligne",
+    "fonctionnalites": [
+      { "id": "F1", "titre": "Rechercher un livre par titre", "estimation": 3 },
+      { "id": "F2", "titre": "Emprunter un livre disponible", "estimation": -1 },
+      { "id": "F3", "titre": "Recevoir un rappel avant la date de retour","estimation": -1 }
+    ]
+  },
+  "fonctionnalite_courrante" : 2,
+  "regle": "strict",
+  "joueurs" : ["a", "b", "c", "d"]
+}

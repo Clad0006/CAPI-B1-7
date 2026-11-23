@@ -5,10 +5,10 @@ import Cards from "../Cards/cards.jsx";
 import validate, { rules } from "../../functions/validation.jsx";
 
 function Game({backlog}) {
-    const[funcId, setFuncId] = React.useState(0);
+    const[funcId, setFuncId] = React.useState(sessionStorage.getItem("currentFeature") ? parseInt(sessionStorage.getItem("currentFeature"))-1 : 0);
     const [playerId, setPlayerId] = React.useState(0);
     const[turn, setTurn] = React.useState(1);
-    const rule = rules.ABSMAJ;
+    const rule = sessionStorage.getItem("regle") ? sessionStorage.getItem("regle") : rules.ABSMAJ ;
     const playerdata = JSON.parse(
         sessionStorage.getItem('playersData') || '{}'
     );
@@ -41,8 +41,8 @@ function Game({backlog}) {
         setcurrPlayer(playerdata[0]);
         setTurn(1);
         setFuncId(funcId + 1);
+        sessionStorage.setItem("currentFeature", funcId+1);
     }
-    
     
     if(!currPlayer){ // s'il n'y a plus de joueurs à faire voter
         const result = validate(Array.from(currVote.values()), rule, turn);
@@ -83,7 +83,10 @@ function Game({backlog}) {
             );
         } else {
             return (
-                <h1>backlog estimé</h1>
+                <div>
+                    <h1>backlog estimé</h1>
+                    <button>Télécharger le résultat</button>
+                </div>
             );
         }
     }
