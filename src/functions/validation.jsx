@@ -19,18 +19,21 @@ export const unanimite = (votes) =>
  * @param {number[]} votes - Les votes choisis.
  * @returns {number} Le vote majoritaire , ou -1 si aucun n'atteint la majorité.
  */
-export const RULES = {
-  [rules.STRICT]: unanimite,
-  [rules.ABSMAJ]: (votes) => {
-    const cafes = votes.filter((v) => v === CAFE).length;
-    if (cafes > votes.length / 2) return -1;
-    const nums = votes.filter((v) => v !== CAFE);
-    for (const v of new Set(nums)) {
-      if (nums.filter((x) => x === v).length > nums.length / 2) return v;
-    }
-    return -1;
-  },
+export const absMaj = (votes) => {
+  const cafes = votes.filter((v) => v === CAFE).length;
+  if (cafes > votes.length / 2) return -1;
+  const nums = votes.filter((v) => v !== CAFE);
+  for (const v of new Set(nums)) {
+    if (nums.filter((x) => x === v).length > nums.length / 2) return v;
+  }
+  return -1;
 };
+
+const RULES = {
+  [rules.STRICT]: unanimite,
+  [rules.ABSMAJ]: absMaj,
+};
+
 
 /**
  * Validité selon la règle et le tour.
