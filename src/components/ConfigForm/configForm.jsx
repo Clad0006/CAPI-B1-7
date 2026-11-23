@@ -157,9 +157,9 @@ function ConfigForm() {
                     </div>
                 ))}
                 <label htmlFor="regle">Règle de vote </label>
-                <select id="regle" name="regle" defaultValue="STRICT">
-                    <option value="STRICT">Unanimité</option>
-                    <option value="ABSMAJ">Majorité absolue</option>
+                <select id="regle" name="regle" defaultValue="strict">
+                    <option value="strict">Unanimité</option>
+                    <option value="absmaj">Majorité absolue</option>
                 </select>
                 <br/>
                 <label htmlFor="backlog">Importer le backlog </label>
