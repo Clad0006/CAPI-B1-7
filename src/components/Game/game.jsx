@@ -41,6 +41,7 @@ function Game({backlog}) {
         setcurrPlayer(playerdata[0]);
         setTurn(1);
         setFuncId(funcId + 1);
+        sessionStorage.setItem("currentFeature", funcId+1);
     }
     
     if(!currPlayer){ // s'il n'y a plus de joueurs à faire voter

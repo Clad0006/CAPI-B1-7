@@ -80,3 +80,4 @@ export default function validate(votes, rule, turn) {
   handleCafe(votes);
   return apply(votes);
 }
+
