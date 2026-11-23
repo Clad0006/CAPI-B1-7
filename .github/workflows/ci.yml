@@ -39,3 +39,14 @@ jobs:
       # Execute les tests avec l'option --run qui permet de les éxecuter une seule fois (l'execution par défaut en mode watch est en temps réel et ne se termine donc pas toute seule)
       - name: Run tests
         run: npm run test -- --run
+
+      # Génère la documentation à partir des commentaires du code
+      - name: Generate documentation
+        run: npx typedoc --entryPoints src --entryPointStrategy expand --out site
+
+      # Conserve la documentation comme artefact du run
+      - name: Upload documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation
+          path: site
