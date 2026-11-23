@@ -42,7 +42,7 @@ jobs:
 
       # Génère la documentation à partir des commentaires du code
       - name: Generate documentation
-        run: npx typedoc --entryPoints src/functions/validation.jsx --out site --allowJs
+        run: npx typedoc --tsconfig tsconfig.json --entryPoints src/functions/validation.jsx --out site
 
       # Conserve la documentation comme artefact du run
       - name: Upload documentation
