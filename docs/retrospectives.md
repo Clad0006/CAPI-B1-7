@@ -22,7 +22,7 @@ Chacun écrit **seul 1 idée par colonne**, puis mise en commun.
 
 | # | Action concrète et vérifiable | Comment saura-t-on qu'elle a été faite ? |
 |---|---|---|
-| 1 | 1 | Écrire des messages de commit qui citent l'US (ex. « US-04 : chargement du backlog JSON ») | L'historique des commits du sprint 2 contient l'identifiant de l'US dans chaque message |
-| 2 | | |
+| 1 | Écrire des messages de commit qui citent l'US (ex. « US-04 : chargement du backlog JSON ») | L'historique des commits du sprint 2 contient l'identifiant de l'US dans chaque message |
+
 
 ---
