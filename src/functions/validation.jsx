@@ -4,14 +4,43 @@ export const rules = { STRICT: "strict", ABSMAJ: "absmaj" };
 
 const CAFE = -1;
 
+function handleCafe(votes) {
+  if(votes.every((v) => v === CAFE)) {
+    const json = {
+      backlog: JSON.parse(sessionStorage.getItem("backlogData")),
+      fonctionnalite_courrante: parseInt(
+          sessionStorage.getItem("currentFeature")
+      ),
+      regle: sessionStorage.getItem("regle"),
+      joueurs: JSON.parse(sessionStorage.getItem("playersData"))
+    };
+
+    const jsonstring = JSON.stringify(json, null, 4);
+
+    const blob = new Blob([jsonstring], {
+      type: "application/json"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.download = json.backlog.projet+"_save.json";
+    a.click();
+
+    URL.revokeObjectURL(url);
+  }
+}
+
 /** 
  * Règle d'unanimité : tous les votes doivent être le même.
  * Décision de la table : égalité parfaite requise, sinon revote.
  * @param {number[]} votes - Les votes choisis.
  * @returns {number} Le même vote (nombre), ou -1 (carte café ou revote) si pas d'unanimité 
  */
-export const unanimite = (votes) =>
-  votes.every((v) => v === votes[0]) ? votes[0] : -1;
+export const unanimite = (votes) => {
+  return votes.every((v) => v === votes[0]) ? votes[0] : -1;
+}
 
 /**
  * Règle de majorité absolue : validée si une valeur réunit plus de la moitié des votes (carte café excluse).
@@ -21,6 +50,7 @@ export const unanimite = (votes) =>
  */
 export const absMaj = (votes) => {
   const cafes = votes.filter((v) => v === CAFE).length;
+  if (cafes > votes.length / 2) return -1;
   if (cafes > votes.length / 2) return -1;
   const nums = votes.filter((v) => v !== CAFE);
   for (const v of new Set(nums)) {
@@ -44,7 +74,9 @@ const RULES = {
  * @returns {number} Le vote, ou -1 si ne correspond pas à la règle.
  */
 export default function validate(votes, rule, turn) {
+  console.log("CALLED VALIDATION")
   if (votes.length === 0) return -1;
   const apply = turn === 1 ? RULES[rules.STRICT] : RULES[rule];
+  handleCafe(votes);
   return apply(votes);
 }

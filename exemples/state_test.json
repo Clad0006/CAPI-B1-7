@@ -8,6 +8,6 @@
     ]
   },
   "fonctionnalite_courrante" : 2,
-  "regle": "STRICT",
+  "regle": "strict",
   "joueurs" : ["a", "b", "c", "d"]
 }

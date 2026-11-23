@@ -50,7 +50,8 @@ function ConfigForm() {
     const [, navigate] = useLocation();
     const [erreur, setErreur] = React.useState(null);
     const [nbJoueurs, setNbJoueurs] = React.useState(2);
-    const [message, setMessage] = React.useState(null);
+    const [messagebacklog, setMessageBacklog] = React.useState(null);
+    const [messagestate, setMessageState] = React.useState(null);
     async function handleBacklogSubmit(event){
         event.preventDefault();
         sessionStorage.clear();
@@ -60,17 +61,17 @@ function ConfigForm() {
         );
 
         if (pseudos.includes("")) {
-            setMessage("Tous les pseudos doivent être renseignés");
+            setMessageBacklog("Tous les pseudos doivent être renseignés");
             return;
         } else if (new Set(pseudos).size !== pseudos.length) {
-            setMessage("Les pseudos doivent être uniques");
+            setMessageBacklog("Les pseudos doivent être uniques");
             return;
         } else {
             sessionStorage.setItem("playersData", JSON.stringify(pseudos));
         }
         const regle = formData.get('regle');
-        if (regle !== "STRICT" && regle !== "ABSMAJ") {
-            setMessage("Règle invalide");
+        if (regle !== "strict" && regle !== "absmaj") {
+            setMessageBacklog("Règle invalide");
             return;
         } else {
             sessionStorage.setItem("regle", regle);
@@ -107,24 +108,24 @@ function ConfigForm() {
             sessionStorage.setItem('backlogData', JSON.stringify(jsonData.backlog));
             const pseudos = jsonData.joueurs;
             if (pseudos.includes("")) {
-                setMessage("Pseudos vides dans la sauvegarde");
+                setMessageState("Pseudos vides dans la sauvegarde");
                 return;
             } else if (new Set(pseudos).size !== pseudos.length) {
-                setMessage("Pseudos dupliqués dans la sauvegarde");
+                setMessageState("Pseudos dupliqués dans la sauvegarde");
                 return;
             } else {
                 sessionStorage.setItem("playersData", JSON.stringify(pseudos));
             }
             const regle = jsonData.regle;
-            if (regle !== "STRICT" && regle !== "ABSMAJ") {
-                setMessage("Règle invalide dans la sauvegarde");
+            if (regle !== "strict" && regle !== "absmaj") {
+                setMessageState("Règle invalide dans la sauvegarde");
                 return;
             } else {
                 sessionStorage.setItem("regle", regle);
             }
             const currFeat = jsonData.fonctionnalite_courrante;
             if (currFeat < 0 || currFeat >= jsonData.backlog.fonctionnalites.length) {
-                setMessage("Fonctionnalité courante invalide dans la sauvegarde");
+                setMessageState("Fonctionnalité courante invalide dans la sauvegarde");
                 return;
             } else {
                 sessionStorage.setItem("currentFeature", currFeat);
@@ -167,7 +168,7 @@ function ConfigForm() {
                     <button type="submit">Valider</button>
                 </div>
             </form>
-            <p>{message}</p>
+            <p>{messagebacklog}</p>
             <p className={"error"}>{erreur}</p>
             <h2>Charger une sauvegarde</h2>
             <form onSubmit={handleStateSubmit}>
@@ -177,7 +178,7 @@ function ConfigForm() {
                     <button type="submit">Valider</button>
                 </div>
             </form>
-            <p>{message}</p>
+            <p>{messagestate}</p>
             <p className={"error"}>{erreur}</p>
         </div>
     );
