@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 import Func from "../Func/func.jsx";
 import Cards from "../Cards/cards.jsx";
 import validate, { rules } from "../../functions/validation.jsx";
+import downloadJSON from "../../functions/downloadJSON.jsx";
 
 function Game({backlog}) {
     const[funcId, setFuncId] = React.useState(sessionStorage.getItem("currentFeature") ? parseInt(sessionStorage.getItem("currentFeature"))-1 : 0);
+    const [features, setFeatures] = React.useState(backlog.fonctionnalites); 
     const [playerId, setPlayerId] = React.useState(0);
     const[turn, setTurn] = React.useState(1);
     const rule = sessionStorage.getItem("regle") ? sessionStorage.getItem("regle") : rules.ABSMAJ ;
@@ -34,14 +36,33 @@ function Game({backlog}) {
         setcurrPlayer(playerdata[0]);
         setTurn(t => t + 1);
     }
-
-    function nextFunc(){
+    function nextFunc(result) {
+        const updated = features.map((f, i) =>
+            i === funcId ? { ...f, estimation: result } : f
+        );
+        setFeatures(updated);
+        sessionStorage.setItem(
+            "backlogData",
+            JSON.stringify({ ...backlog, fonctionnalites: updated })
+        );
+    
         setCurrVote(new Map());
         setPlayerId(0);
         setcurrPlayer(playerdata[0]);
         setTurn(1);
         setFuncId(funcId + 1);
-        sessionStorage.setItem("currentFeature", funcId+1);
+        sessionStorage.setItem("currentFeature", funcId + 1);
+    }
+
+
+    function exportResult() { 
+        downloadJSON(backlog.projet + "_resultat.json", {
+            projet: backlog.projet,
+            regle: rule,
+            fonctionnalites: features.map(({ id, titre, estimation }) => ({
+                id, titre, estimation,
+            })),
+        });
     }
     
     if(!currPlayer){ // s'il n'y a plus de joueurs à faire voter
@@ -63,7 +84,7 @@ function Game({backlog}) {
                 ) : (
                     <>
                         <p>Validé : {result}</p>
-                        <button onClick={nextFunc}>Passer à la suite</button>
+                        <button onClick={() => nextFunc(result)}>Passer à la suite</button> 
                     </>
                 )}           
          </div>
@@ -85,7 +106,7 @@ function Game({backlog}) {
             return (
                 <div>
                     <h1>backlog estimé</h1>
-                    <button>Télécharger le résultat</button>
+                    <button onClick={exportResult}>Télécharger le résultat</button>
                 </div>
             );
         }

@@ -1,3 +1,5 @@
+import downloadJSON from "./downloadJSON.jsx";
+
 /** Les règles de vote disponibles. */
 export const rules = { STRICT: "strict", ABSMAJ: "absmaj" };
 
@@ -5,32 +7,16 @@ export const rules = { STRICT: "strict", ABSMAJ: "absmaj" };
 const CAFE = -1;
 
 function handleCafe(votes) {
-  if(votes.every((v) => v === CAFE)) {
-    const json = {
-      backlog: JSON.parse(sessionStorage.getItem("backlogData")),
-      fonctionnalite_courrante: parseInt(
-          sessionStorage.getItem("currentFeature")
-      ),
+  if (votes.every((v) => v === CAFE)) {
+    const backlog = JSON.parse(sessionStorage.getItem("backlogData"));
+    downloadJSON(backlog.projet + "_save.json", {
+      backlog,
+      fonctionnalite_courrante: parseInt(sessionStorage.getItem("currentFeature")),
       regle: sessionStorage.getItem("regle"),
-      joueurs: JSON.parse(sessionStorage.getItem("playersData"))
-    };
-
-    const jsonstring = JSON.stringify(json, null, 4);
-
-    const blob = new Blob([jsonstring], {
-      type: "application/json"
+      joueurs: JSON.parse(sessionStorage.getItem("playersData")),
     });
-
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-
-    a.href = url;
-    a.download = json.backlog.projet+"_save.json";
-    a.click();
-
-    URL.revokeObjectURL(url);
   }
-}
+} 
 
 /** 
  * Règle d'unanimité : tous les votes doivent être le même.

@@ -18,5 +18,10 @@
 - Modifications : aucune
 ## CI :
  - Demande : écrire et expliquer un fichier de CI simple pour le framework utilisé, configuration de la génération de doc dans la CI
- - Résultat : .github/workflows/ci.yml
+ - Résultat : .github/workflows/ci.yml - tsconfig.json
  - Modifications : suppression des vérifications de qualité de code et de build car non demandés, ajout de commentaires pour expliquer les blocs.
+
+## Backlog
+  - Demande: compléter et corriger code pour exporter backlog
+  - Résultat: downloadJSON.jsx - function nextFunc(result) - function exportResult()
+  - Modifications : aucune 
