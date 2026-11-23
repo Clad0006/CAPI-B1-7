@@ -17,6 +17,6 @@
 - Résultat : validation.jsx
 - Modifications : aucune
 ## CI :
- - Demande : écrire et expliquer un fichier de CI simple pour le framework utilisé
+ - Demande : écrire et expliquer un fichier de CI simple pour le framework utilisé, configuration de la génération de doc dans la CI
  - Résultat : .github/workflows/ci.yml
- - Modifications : suppression des vérifications de qualité de code et de build car non demandés, ajout de commentaires pour expliquer les blocs
+ - Modifications : suppression des vérifications de qualité de code et de build car non demandés, ajout de commentaires pour expliquer les blocs.
