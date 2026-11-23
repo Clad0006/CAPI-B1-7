@@ -6,7 +6,7 @@
 
 | US prévues | US terminées | Points prévus | Points réalisés (vélocité) |
 |---|---|---|---|
-| | | | |
+|US-04, US-05(opt), US-07 |US-04, US-05(opt), US-07 |11 |11 |
 
 
 
