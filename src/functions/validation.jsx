@@ -1,10 +1,14 @@
+/** Les règles de vote disponibles. */
 export const rules = { STRICT: "strict", ABSMAJ: "absmaj" };
 
+/** Carte café */
 const CAFE = -1;
 
+/** Règle d'unanimité : tous les votes doivent être identiques. */
 const unanimite = (votes) =>
   votes.every((v) => v === votes[0]) ? votes[0] : -1;
 
+/** Règle de majorité absolue, sans compter carte café. */
 const RULES = {
   [rules.STRICT]: unanimite,
   [rules.ABSMAJ]: (votes) => {
@@ -18,6 +22,7 @@ const RULES = {
   },
 };
 
+/** Validité selon la règle et le tour. */
 export default function validate(votes, rule, turn) {
   if (votes.length === 0) return -1;
   const apply = turn === 1 ? RULES[rules.STRICT] : RULES[rule];
